@@ -23,26 +23,25 @@ class TaskManager {
     static tasks = [];
 
     static findTaskWithId(taskId) {
-        ProjectManager.projects.forEach(project => {
-            project.tasks.forEach(task =>{
-                if(task.id === taskId) return task;
-            })
-        })
-        //return this.tasks.find(task => task.id === taskId);
+        for(const project of ProjectManager.projects){
+            for(const task of project.tasks){
+                if (task.id === taskId) return task;
+            }
+        }
     }
 
     static addTask(projectTitle, title, description = "", dueDate = null, priority = 0) {
         let newTask = new Task(title, description, dueDate, priority);
-        this.tasks.push(newTask);
         const project = ProjectManager.findProject(projectTitle);
         project.tasks.push(newTask);
+        LocalStorageManager.updateStorage();
     }
 
     static removeTask(oldTaskId) {
         const oldTask = this.findTaskWithId(oldTaskId);
         const project = ProjectManager.findProjectWithTaskId(oldTaskId);
         project.tasks = project.tasks.filter(task => task.id !== oldTaskId);
-        this.tasks = this.tasks.filter(item => item.id !== id);
+        LocalStorageManager.updateStorage();
     }
 
     static editTask(taskId, title, oldProjectTitle, description, dueDate, priority, newProjectTitle = null) {
@@ -56,19 +55,8 @@ class TaskManager {
         task.description = description;
         task.dueDate = new Date(dueDate[0], dueDate[1] - 1, dueDate[2]);
         task.priority = priority;
+        LocalStorageManager.updateStorage();
     }
-
-    // static listTasks(){
-    //     let tasks = [];
-    //     let project;
-    //     for(let i = 0; i < projects.length; i++){
-    //         project = ProjectManager.projects[i];
-    //         for (let j = 0; j < project.tasks.length; j++){
-    //             tasks.push(project.tasks[j]);
-    //         }
-    //     }
-    //     return tasks;
-    // }
 }
 
 class ProjectManager {
@@ -77,19 +65,18 @@ class ProjectManager {
     static addProject(title) {
         let project = new Project(title);
         this.projects.push(project);
-        LocalStorageManager.updateProjects();
+        LocalStorageManager.updateStorage();
     }
 
     static removeProject(title) {
         this.projects = this.projects.filter(project => project.title !== title);
-        LocalStorageManager.updateProjects();
+        LocalStorageManager.updateStorage();
     }
 
     static editProject(oldTitle, newTitle) {
         const project = this.findProject(oldTitle);
         project.title = newTitle;
-        LocalStorageManager.updateProjects();
-        LocalStorageManager.updateTasks();
+        //Storage updated elsewhere when this function is used so no need to update storage here
     }
 
     static findProject(title) {
@@ -110,6 +97,7 @@ class ProjectManager {
         const newProject = this.findProject(newProjectTitle);
         const task = TaskManager.findTaskWithId(taskId);
         newProject.tasks.push(task);
+        LocalStorageManager.updateStorage();
     }
 
     static isTitleAvailable(title) {
@@ -137,11 +125,7 @@ class LocalStorageManager {
         ProjectManager.projects = JSON.parse(localStorage.getItem("projects"));
     }
 
-    static updateTasks(){
-        localStorage.setItem("tasks", JSON.stringify(TaskManager.tasks));
-    }
-
-    static updateProjects(){
+    static updateStorage(){
         localStorage.setItem("projects", JSON.stringify(ProjectManager.projects));
     }
 }
