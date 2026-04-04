@@ -1,10 +1,9 @@
 class Task {
     static nextId = 0;
 
-    constructor(title, projectTitle, description = "", dueDate = null, priority = 0) {
+    constructor(title, description = "", dueDate = null, priority = 0) {
         this.id = Task.nextId++;
         this.title = title;
-        this.projectTitle = projectTitle;
         this.description = description;
         this.dueDate = new Date(dueDate[0], dueDate[1] - 1, dueDate[2]);
         this.priority = priority;
@@ -24,11 +23,16 @@ class TaskManager {
     static tasks = [];
 
     static findTaskWithId(taskId) {
-        return this.tasks.find(task => task.id === taskId);
+        ProjectManager.projects.forEach(project => {
+            project.tasks.forEach(task =>{
+                if(task.id === taskId) return task;
+            })
+        })
+        //return this.tasks.find(task => task.id === taskId);
     }
 
-    static addTask(title, projectTitle, description = "", dueDate = null, priority = 0) {
-        let newTask = new Task(title, projectTitle, description, dueDate, priority);
+    static addTask(projectTitle, title, description = "", dueDate = null, priority = 0) {
+        let newTask = new Task(title, description, dueDate, priority);
         this.tasks.push(newTask);
         const project = ProjectManager.findProject(projectTitle);
         project.tasks.push(newTask);
@@ -36,7 +40,7 @@ class TaskManager {
 
     static removeTask(oldTaskId) {
         const oldTask = this.findTaskWithId(oldTaskId);
-        const project = ProjectManager.findProject(oldTask.projectTitle);
+        const project = ProjectManager.findProjectWithTaskId(oldTaskId);
         project.tasks = project.tasks.filter(task => task.id !== oldTaskId);
         this.tasks = this.tasks.filter(item => item.id !== id);
     }
@@ -73,19 +77,30 @@ class ProjectManager {
     static addProject(title) {
         let project = new Project(title);
         this.projects.push(project);
+        LocalStorageManager.updateProjects();
     }
 
     static removeProject(title) {
         this.projects = this.projects.filter(project => project.title !== title);
+        LocalStorageManager.updateProjects();
+    }
+
+    static editProject(oldTitle, newTitle) {
+        const project = this.findProject(oldTitle);
+        project.title = newTitle;
+        LocalStorageManager.updateProjects();
+        LocalStorageManager.updateTasks();
     }
 
     static findProject(title) {
         return this.projects.find(project => project.title === title);
     }
 
-    static editProject(title) {
-        const project = findProject(title);
-        project.title = title;
+    static findProjectWithTaskId(taskId){
+        const project = this.projects.find(project =>
+            project.tasks.some(task => task.id === taskId)
+        )
+        return project;
     }
 
     static changeProjectOfTask(taskId, oldProjectTitle, newProjectTitle) {
@@ -95,7 +110,6 @@ class ProjectManager {
         const newProject = this.findProject(newProjectTitle);
         const task = TaskManager.findTaskWithId(taskId);
         newProject.tasks.push(task);
-        task.projectTitle = newProject.title;
     }
 
     static isTitleAvailable(title) {
@@ -107,15 +121,29 @@ class ProjectManager {
         return true;
     }
 
-    static listProjectsAndTasks(){ // For dev and debug purpose
-        this.projects.forEach(function(project){
+    static listProjectsAndTasks() { // For dev and debug purpose
+        this.projects.forEach(function (project) {
             console.log(`Projet : ${project.title} :`);
-            console.log(`ID : ${project.id}`);
             console.log(`Tasks :`);
-            project.tasks.forEach(task => console.log(`ID : ${task.id}, title : ${task.title}, projectTitle : ${task.projectTitle}, description : ${task.description}, dueDate : ${task.duteDate}, priority : ${task.priority}`));
+            project.tasks.forEach(task => console.log(`ID : ${task.id} | title : ${task.title} | description : ${task.description} | dueDate : ${task.dueDate} | priority : ${task.priority}`));
             console.log("");
         })
     }
 }
 
-export { Task, Project, TaskManager, ProjectManager };
+class LocalStorageManager {
+
+    static retrieveData(){
+        ProjectManager.projects = JSON.parse(localStorage.getItem("projects"));
+    }
+
+    static updateTasks(){
+        localStorage.setItem("tasks", JSON.stringify(TaskManager.tasks));
+    }
+
+    static updateProjects(){
+        localStorage.setItem("projects", JSON.stringify(ProjectManager.projects));
+    }
+}
+
+export { Task, Project, TaskManager, ProjectManager, LocalStorageManager };
