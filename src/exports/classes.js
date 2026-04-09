@@ -130,4 +130,11 @@ class LocalStorageManager {
     }
 }
 
+function main(){
+    LocalStorageManager.retrieveData();
+    if(ProjectManager.projects.length === 0){
+        ProjectManager.addProject("Default Project", "This is the default project which is always present if no projects were created");
+    }
+}
+
 export { Task, Project, TaskManager, ProjectManager, LocalStorageManager };

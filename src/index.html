@@ -1,15 +1,72 @@
 <!DOCTYPE html>
 <html lang="eng">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To-do-list</title>
-    </head>
 
-    <body>
-        <div id="sidebar">
-            
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do-list</title>
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="profilDiv" class="sidebarRow">
+            <img src="./img/user-icon.webp" alt="icon of a user" id="profilIcon">
+            <h2 id="profilName">Tony MOLINIER</h2>
         </div>
-    </body>
+        <div id="myProjectsDiv" class="sidebarRow">
+            <img src="./img/projects-icon.png" alt="icon of my projects" id="myProjectsIcon">
+            <h2 id="myProjectsTitle">My Projects</h2>
+            <button type="button" class="sidebarBtn" id="addProjectBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>plus</title>
+                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                </svg>
+            </button>
+
+        </div>
+        <div class="sidebarRow sidebarProject">
+            <p>abidabou 1</p>
+            <button class="sidebarBtn" id="editProjectBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>pencil</title>
+                    <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="sidebarRow sidebarProject">
+            <p>abidabou 2</p>
+            <button class="sidebarBtn" id="editProjectBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>pencil</title>
+                    <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="sidebarRow sidebarProject">
+            <p>abidabou 3</p>
+            <button class="sidebarBtn" id="editProjectBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>pencil</title>
+                    <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="sidebarRow sidebarProject">
+            <p>abidabou 4</p>
+            <button class="sidebarBtn" id="editProjectBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>pencil</title>
+                    <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="content"></div>
+</body>
 
 </html>
