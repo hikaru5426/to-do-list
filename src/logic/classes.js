@@ -128,12 +128,9 @@ class LocalStorageManager {
     static updateStorage(){
         localStorage.setItem("projects", JSON.stringify(ProjectManager.projects));
     }
-}
 
-function main(){
-    LocalStorageManager.retrieveData();
-    if(ProjectManager.projects.length === 0){
-        ProjectManager.addProject("Default Project", "This is the default project which is always present if no projects were created");
+    static clearStorage(){
+        localStorage.clear();
     }
 }
 
