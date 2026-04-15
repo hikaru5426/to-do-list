@@ -23,6 +23,7 @@ img{
 
 input, button{
     font:inherit;
+    padding:6px;
 }
 
 ul, ol{
@@ -74,4 +75,36 @@ ul, ol{
 
 .sidebarProject > button{
     grid-column: 3 / 4;
+}
+
+.hidden{
+    display:none;
+}
+
+#overlay:not(.hidden){
+    position:fixed;
+    height:100%;
+    width:100%;
+    background-color:rgba(0, 0, 0, 0.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#modalAddProject{
+    border:10 px solid black;
+    background-color:white;
+    padding:20px;
+    height:max-content;
+    width:max-content;
+}
+
+#modalAddProject > form{
+    display:grid;
+    gap:10px;
+    grid-template-columns:1fr 1fr;
+}
+
+#modalAddProject > form > input{
+    grid-column:1/3;
 }

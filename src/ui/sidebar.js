@@ -1,12 +1,16 @@
 import { Task, Project, TaskManager, ProjectManager, LocalStorageManager } from "../logic/classes.js";
 const sidebarDiv = document.getElementById("sidebar");
+const overlayDiv = document.getElementById("overlay");
+const projectsDiv = document.getElementById("sidebarProjectsContainer");
 
-class sidebar {
-    
+const addProjectCancelBtn = document.getElementById("addProjectCancelBtn");
+const addProjectForm = document.getElementById("addProjectForm");
+const addProjectSubmitBtn = document.getElementById("addProjectSubmitBtn");
+const addProjectInput = document.getElementById("addProjectInput");
+
+class Sidebar {
+
     static buildProjects() {
-        const projectsDiv = document.createElement("div");
-        projectsDiv.id = "sidebarProjectsContainer";
-
         for (const project of ProjectManager.projects) {
             const projectDiv = document.createElement("div");
             projectDiv.classList.add("sidebarRow", "sidebarProject");
@@ -15,6 +19,7 @@ class sidebar {
             projectTitle.textContent = project.title;
 
             const editProjectBtn = document.createElement("button");
+            editProjectBtn.type = "button";
             editProjectBtn.id = project.title;
             editProjectBtn.classList.add("sidebarBtn", "editProjectBtn");
             editProjectBtn.innerHTML = `
@@ -28,16 +33,34 @@ class sidebar {
             projectsDiv.append(projectDiv);
 
         }
-        sidebarDiv.append(projectsDiv);
+    }
 
+    static updateProjects(){
+        projectsDiv.innerHTML = "";
+        this.buildProjects();
     }
 }
 
-// sidebarDiv.addEventListener("click",(e) {
-//     const button = e.target.closest("button");
-//     switch(button.id){
-//         case ""
-//     }
-// })
+document.addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button) return;
+    switch (button.id) {
+        case "addProjectBtn":
+            overlayDiv.classList.remove("hidden");
+            break;
+        case "addProjectCancelBtn":
+            overlayDiv.classList.add("hidden");
+            break;
+    }
+})
 
-export { sidebar };
+addProjectForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const newProjectName = addProjectInput.value;
+    ProjectManager.addProject(newProjectName);
+    overlayDiv.classList.add("hidden");
+    Sidebar.updateProjects();
+})
+
+
+export { Sidebar };

@@ -1,6 +1,6 @@
 import "./styles.css";
 import {Task, Project, TaskManager, ProjectManager, LocalStorageManager} from "./logic/classes.js";
-import {sidebar} from "./ui/sidebar.js";
+import {Sidebar} from "./ui/sidebar.js";
 import { format, addDays, subDays, addMonths, differenceInDays, isBefore, isAfter, isToday, parseISO } from 'date-fns'
 
 window.debug = {Task, Project, TaskManager, ProjectManager, LocalStorageManager, sidebar};
@@ -10,7 +10,7 @@ function main(){
     if(ProjectManager.projects.length === 0){
         ProjectManager.addProject("Default Project");
     }
-    sidebar.buildProjects();
+    Sidebar.buildProjects();
 }
 main();
 
