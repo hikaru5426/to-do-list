@@ -1,9 +1,10 @@
 import "./styles.css";
-import {Task, Project, TaskManager, ProjectManager, LocalStorageManager} from "./logic/classes.js";
+import {TaskManager, ProjectManager, LocalStorageManager} from "./logic/classes.js";
+import "./ui/eventListeners.js";
 import {Sidebar} from "./ui/sidebar.js";
 import { format, addDays, subDays, addMonths, differenceInDays, isBefore, isAfter, isToday, parseISO } from 'date-fns'
 
-window.debug = {Task, Project, TaskManager, ProjectManager, LocalStorageManager, sidebar};
+window.debug = {TaskManager, ProjectManager, LocalStorageManager, Sidebar};
 
 function main(){
     LocalStorageManager.retrieveData();

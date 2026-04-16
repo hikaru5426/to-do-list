@@ -81,7 +81,7 @@ ul, ol{
     display:none;
 }
 
-#overlay:not(.hidden){
+#overlayDiv:not(.hidden){
     position:fixed;
     height:100%;
     width:100%;
@@ -91,7 +91,7 @@ ul, ol{
     align-items:center;
 }
 
-#modalAddProject{
+#modalDiv{
     border:10 px solid black;
     background-color:white;
     padding:20px;
@@ -99,12 +99,12 @@ ul, ol{
     width:max-content;
 }
 
-#modalAddProject > form{
+#modalDiv > form{
     display:grid;
     gap:10px;
     grid-template-columns:1fr 1fr;
 }
 
-#modalAddProject > form > input{
+#modalDiv > form > input{
     grid-column:1/3;
 }

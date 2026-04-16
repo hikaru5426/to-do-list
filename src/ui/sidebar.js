@@ -1,12 +1,9 @@
 import { Task, Project, TaskManager, ProjectManager, LocalStorageManager } from "../logic/classes.js";
 const sidebarDiv = document.getElementById("sidebar");
-const overlayDiv = document.getElementById("overlay");
+
 const projectsDiv = document.getElementById("sidebarProjectsContainer");
 
-const addProjectCancelBtn = document.getElementById("addProjectCancelBtn");
-const addProjectForm = document.getElementById("addProjectForm");
-const addProjectSubmitBtn = document.getElementById("addProjectSubmitBtn");
-const addProjectInput = document.getElementById("addProjectInput");
+
 
 class Sidebar {
 
@@ -35,32 +32,13 @@ class Sidebar {
         }
     }
 
-    static updateProjects(){
+    static updateProjectsUI(){
         projectsDiv.innerHTML = "";
         this.buildProjects();
     }
 }
 
-document.addEventListener("click", (event) => {
-    const button = event.target.closest("button");
-    if (!button) return;
-    switch (button.id) {
-        case "addProjectBtn":
-            overlayDiv.classList.remove("hidden");
-            break;
-        case "addProjectCancelBtn":
-            overlayDiv.classList.add("hidden");
-            break;
-    }
-})
 
-addProjectForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const newProjectName = addProjectInput.value;
-    ProjectManager.addProject(newProjectName);
-    overlayDiv.classList.add("hidden");
-    Sidebar.updateProjects();
-})
 
 
 export { Sidebar };
