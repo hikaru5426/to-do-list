@@ -1,5 +1,6 @@
 
 import{Sidebar} from "./sidebar.js";
+import {MainContent} from "./mainContent.js"
 
 const overlayDiv = document.getElementById("overlayDiv");
 const modalDiv = document.getElementById("modalDiv");

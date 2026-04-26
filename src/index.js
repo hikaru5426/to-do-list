@@ -2,9 +2,10 @@ import "./styles.css";
 import {TaskManager, ProjectManager, LocalStorageManager} from "./logic/classes.js";
 import "./ui/eventListeners.js";
 import {Sidebar} from "./ui/sidebar.js";
+import {MainContent} from "./ui/mainContent.js";
 import { format, addDays, subDays, addMonths, differenceInDays, isBefore, isAfter, isToday, parseISO } from 'date-fns'
 
-window.debug = {TaskManager, ProjectManager, LocalStorageManager, Sidebar};
+window.debug = {TaskManager, ProjectManager, LocalStorageManager, Sidebar, MainContent};
 
 function main(){
     LocalStorageManager.retrieveData();
@@ -12,7 +13,11 @@ function main(){
         ProjectManager.addProject("Default Project");
     }
     Sidebar.buildProjects();
+
+    const firstProject = ProjectManager.projects[0];
+    MainContent.buildTasks(firstProject.title);
 }
+
 main();
 
 // ProjectManager.addProject("Default Project");
