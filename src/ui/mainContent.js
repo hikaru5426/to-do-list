@@ -25,7 +25,7 @@ class MainContent{
             priority.classList.add("taskPriority bold");
             priority.innerText = String(task.priority);
 
-            firstRow.appendChild(title, priority);
+            firstRow.append(title, priority);
             
             const dueDate = document.createElement("p");
             dueDate.classList.add("taskDueDate bold");
@@ -35,21 +35,21 @@ class MainContent{
             description.classList.add("taskDescription");
             description.innerText = task.description;
 
-            taskDiv.appendChild(firstRow, dueDate, description);
-            mainContentDiv.appendChild(taskDiv);
+            taskDiv.append(firstRow, dueDate, description);
+            mainContentDiv.append(taskDiv);
         }
 
-        const createTaskBtn = document.createElement("button");
-        createTaskBtn.id = "createTaskBtn";
-        createTaskBtn.classList.add("task");
+        const addTaskBtn = document.createElement("button");
+        addTaskBtn.classList.add("task" ,"addTaskBtn");
+        addTaskBtn.type = "button";
 
         const img = document.createElement("img");
         img.src = addIcon;
         img.alt = "a cross icon";
 
-        createTaskBtn.appendChild(img);
+        addTaskBtn.append(img);
 
-        mainContentDiv.appendChild(createTaskBtn)
+        mainContentDiv.append(addTaskBtn)
     }
 
     

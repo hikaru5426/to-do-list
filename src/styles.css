@@ -154,7 +154,7 @@ ul, ol{
     font-size:1.5rem;
 }
 
-#createTaskBtn{
+.addTaskBtn{
     border-style:dashed;
     display:flex;
     justify-content:center;
@@ -162,6 +162,6 @@ ul, ol{
     background-color:rgba(0, 0, 0, 0.05);
 }
 
-#createTaskBtn > img{
+.addTaskBtn > img{
     fill:rgb(235, 7, 7);
 }

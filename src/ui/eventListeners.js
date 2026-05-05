@@ -10,16 +10,19 @@ document.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button || button.type === "submit") return;
 
-    if (button.classList.contains("cancelBtn")) Modal.hide();
-
     const btnClassList = button.classList;
-    if (btnClassList.contains("addProjectBtn")) Modal.create("addProject");
+
+    if (btnClassList.contains("cancelBtn")) Modal.hide();
+    else if (btnClassList.contains("addProjectBtn")) Modal.create("addProject");
     else if (btnClassList.contains("editProjectBtn")) {
         const projectTitle = button.parentElement.dataset.projectTitle;
         Modal.create("editProject", projectTitle);
-    } else if (btnClassList.contains("removeProjectBtn")){
+    } else if (btnClassList.contains("removeProjectBtn")) {
         const projectTitle = button.parentElement.dataset.projectTitle;
         Modal.create("removeProject", projectTitle);
+    } else if (btnClassList.contains("addTaskBtn")) {
+        const currentProject = document.body.dataset.currentProject;
+        Modal.create("addTask", currentProject);
     }
 })
 
@@ -53,11 +56,16 @@ modalDiv.addEventListener("submit", (event) => {
                 nameUnavailable.classList.remove("hidden");
             }
             break;
+
+        case "removeProject":
+            const projectTitle = modalDiv.dataset.projectTitle;
+            Modal.hide();
+            ProjectManager.removeProject(projectTitle);
+            Sidebar.updateProjectsUI();
+            break;
         
-            case "removeProject":
-                const projectTitle = modalDiv.dataset.projectTitle;
-                Modal.hide();
-                ProjectManager.removeProject(projectTitle);
-                Sidebar.updateProjectsUI();
+        case "addTask":
+            //const projectTitle = document.getElementById()
+            break;
     }
 })
